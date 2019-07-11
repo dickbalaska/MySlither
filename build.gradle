@@ -10,7 +10,7 @@ version = "0.0.1"
 group = "de.mat2095"
 archivesBaseName = "my_slither"
 mainClassName = "de.mat2095.my_slither.Main"
-//sourceCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_8
 
 compileJava {
   options.compilerArgs.addAll(['--release', '8'])
@@ -20,19 +20,12 @@ repositories {
     mavenCentral()
 }
 
-//configurations {
-//    natives
-//}
-
 dependencies {
-    //compile "org.apache.logging.log4j:log4j-api:2.11.2"
-    //compile "org.apache.logging.log4j:log4j-core:2.11.2"
-    //compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.11.2'
-	//compile group: 'com.bulenkov', name: 'darcula', version: '2018.2'
 	compile group: 'org.java-websocket', name: 'Java-WebSocket', version: '1.4.0'
 	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
 	compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.26'
 
+    compile fileTree(dir: 'lib', include: '*.jar')
 
 }
 
@@ -77,13 +70,5 @@ processResources {
         from (zipTree(it)) {
             exclude "**/META-INF/"
         }
-    }
-    
-    // native processing will probably change
-    //configurations.natives.each {
-    //    from (zipTree(it)) {
-    //        exclude "**/META-INF/"
-    //    }
-   // }
+    }    
 }
-

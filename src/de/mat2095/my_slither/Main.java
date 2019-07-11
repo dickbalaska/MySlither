@@ -7,8 +7,8 @@ public final class Main {
     public static void main(String[] args) throws Exception {
 
         System.setProperty("sun.java2d.opengl", "false");
-
-        //UIManager.setLookAndFeel("com.bulenkov.darcula.DarculaLaf");
+        UIManager.getFont("Label.font");
+        UIManager.setLookAndFeel("com.bulenkov.darcula.DarculaLaf");
 
         new MySlitherJFrame().setVisible(true);
 
