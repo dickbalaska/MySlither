@@ -8,7 +8,7 @@ public final class Main {
 
         System.setProperty("sun.java2d.opengl", "false");
 
-        UIManager.setLookAndFeel("com.bulenkov.darcula.DarculaLaf");
+        //UIManager.setLookAndFeel("com.bulenkov.darcula.DarculaLaf");
 
         new MySlitherJFrame().setVisible(true);
 
