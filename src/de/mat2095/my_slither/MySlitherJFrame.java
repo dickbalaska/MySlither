@@ -14,6 +14,7 @@ import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import javax.swing.table.DefaultTableCellRenderer;
 
+@SuppressWarnings("serial")
 final class MySlitherJFrame extends JFrame {
 
     private static final String[] SNAKES = {
@@ -109,7 +110,7 @@ final class MySlitherJFrame extends JFrame {
     public MySlitherModel model;
     public final Object modelLock = new Object();
 
-    public MySlitherJFrame() {
+	public MySlitherJFrame() {
         super("MySlither");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         addWindowListener(new WindowAdapter() {

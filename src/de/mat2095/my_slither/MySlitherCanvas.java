@@ -21,6 +21,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 final class MySlitherCanvas extends JPanel {
 
     private static final Color BACKGROUND_COLOR = new Color(0x2B2B2B);
