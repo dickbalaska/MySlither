@@ -13,7 +13,8 @@ public class MySlitherModel {
     final double spangdv;
     final double nsp1, nsp2, nsp3;
     private final double mamu1, mamu2;
-    private final double cst;
+    @SuppressWarnings("unused")
+	private final double cst;
     private final int mscps;
     private final double[] fpsls, fmlts;
 

@@ -641,7 +641,8 @@ final class MySlitherWebSocketClient extends WebSocketClient {
     private void processAddRemovePrey(int[] data) {
         if (data.length == 7) {
             int id = (data[3] << 8) | data[4];
-            int eaterID = (data[5] << 8) | data[6];
+            @SuppressWarnings("unused")
+			int eaterID = (data[5] << 8) | data[6];
             model.removePrey(id);
         } else if (data.length == 5) {
             int id = (data[3] << 8) | data[4];
