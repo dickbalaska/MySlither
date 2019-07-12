@@ -107,15 +107,18 @@ final class MySlitherJFrame extends JFrame {
     private Status status;
     private URI[] serverList;
     private MySlitherWebSocketClient client;
+    private Config	config;
     public MySlitherModel model;
     public final Object modelLock = new Object();
 
 	public MySlitherJFrame() {
         super("MySlither");
+        config = ConfigMan.INSTANCE.readConfig(Config.class);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+            	saveConfig();
                 updateTimer.cancel();
                 if (status == Status.CONNECTING || status == Status.CONNECTED) {
                     disconnect();
@@ -131,14 +134,14 @@ final class MySlitherJFrame extends JFrame {
         // === upper row ===
         JPanel settings = new JPanel(new GridBagLayout());
 
-        server = new JTextField(16);
+        server = new JTextField(config.connectToServer, 16);
 
         name = new JTextField("MySlitherEaterBot", 16);
 
         snake = new JComboBox<>(SNAKES);
         snake.setMaximumRowCount(snake.getItemCount());
 
-        useRandomServer = new JCheckBox("use random server", true);
+        useRandomServer = new JCheckBox("use random server", config.useRandomServer);
         useRandomServer.addActionListener(a -> {
             setStatus(null);
         });
@@ -274,12 +277,16 @@ final class MySlitherJFrame extends JFrame {
 
         getContentPane().add(fullSplitPane, BorderLayout.CENTER);
 
-        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
-        setSize(screenWidth * 3 / 4, screenHeight * 4 / 5);
-        setLocation((screenWidth - getWidth()) / 2, (screenHeight - getHeight()) / 2);
-        setExtendedState(MAXIMIZED_BOTH);
-
+        if (config.windowWidth < 0 || config.windowHeight < 0) {
+	        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+	        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+	        setSize(screenWidth * 3 / 4, screenHeight * 4 / 5);
+	        setLocation((screenWidth - getWidth()) / 2, (screenHeight - getHeight()) / 2);
+	        setExtendedState(MAXIMIZED_BOTH);
+        } else {
+        	setSize(config.windowWidth, config.windowHeight);
+        	setLocation(config.windowX, config.windowY);
+        }
         validate();
         startTime = System.currentTimeMillis();
         setStatus(Status.DISCONNECTED);
@@ -458,5 +465,14 @@ final class MySlitherJFrame extends JFrame {
             this.buttonEnabled = buttonEnabled;
             this.allowModifyData = allowModifyData;
         }
+    }
+    private void saveConfig() {
+    	config.connectToServer = server.getText();
+    	config.windowX = getLocation().x;
+    	config.windowY = getLocation().y;
+    	config.windowWidth  = getSize().width;
+    	config.windowHeight = getSize().height;
+    	config.useRandomServer = useRandomServer.isSelected();
+    	ConfigMan.INSTANCE.saveConfig(config);
     }
 }
