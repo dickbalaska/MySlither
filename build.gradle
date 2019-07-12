@@ -18,14 +18,19 @@ compileJava {
 
 repositories {
     mavenCentral()
+	maven {
+		url "http://repo.spring.io/plugins-release/"
+	}
 }
 
 dependencies {
 	compile group: 'org.java-websocket', name: 'Java-WebSocket', version: '1.4.0'
 	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
 	compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.26'
+    compile "com.google.code.gson:gson:1.7.2"
+	compile "com.bulenkov:darcula:2018.2"
 
-    compile fileTree(dir: 'lib', include: '*.jar')
+    //compile fileTree(dir: 'lib', include: '*.jar')
 
 }
 
